@@ -2,18 +2,10 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import platform
+import koreanize_matplotlib  # [핵심] 이걸 import하면 한글 설정 코드 10줄을 안 써도 됩니다!
 
-# [추가] 한글 폰트 깨짐 방지 설정
-if platform.system() == 'Windows':
-    plt.rc('font', family='Malgun Gothic')
-elif platform.system() == 'Darwin': # Mac
-    plt.rc('font', family='AppleGothic')
-else: # Linux (구글 코랩 등)
-    plt.rc('font', family='NanumGothic')
-
-# [추가] 마이너스 기호가 깨지는 것 방지
-plt.rcParams['axes.unicode_minus'] = False
+# [삭제됨] platform 임포트 및 복잡한 OS별 폰트 설정 코드 제거
+# [삭제됨] 마이너스 깨짐 방지 코드도 koreanize_matplotlib가 알아서 해줍니다.
 
 st.title('국세청 근로소득 데이터 분석')
 
