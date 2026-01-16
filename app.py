@@ -23,7 +23,7 @@ file_path = 'data/국세청_근로소득.csv'
 try:
     # 한글 엑셀 파일 읽기 위해 encoding='cp949' 유지
     df = pd.read_csv(file_path, encoding='cp949')
-    st.success('데이터가 성공적으로 로드했습니다!')
+    st.success('데이터를 성공적으로 로드했습니다!')
     
     # 데이터 미리 보기
     st.subheader('데이터 미리 보기')
@@ -35,15 +35,14 @@ try:
     # 분석할 열 선택
     column_names = df.columns.tolist()
     
-    # 숫자형 데이터만 선택해야 오류가 적으므로, 사용자가 선택할 때 주의 필요
+    # 사용자 선택
     selected_column = st.selectbox('분석할 열을 선택하세요', column_names)
     
     if selected_column:
-        # 그래프 그리기(seaborn 사용)
-        fig, ax = plt.subplots(figsize=(10,5)) 
+        # 그래프 그리기
+        fig, ax = plt.subplots(figsize=(10, 5)) 
         
-        # 데이터에 NaN(빈값)이 있으면 오류가 날 수 있어 dropna()로 제거 후 그리기
-        # 숫자형 데이터가 아닌 경우 오류가 날 수 있음 (try-except로 잡힘)
+        # 데이터 시각화 (NaN 제거)
         sns.histplot(df[selected_column].dropna(), kde=True, ax=ax, color='#87CEFA')
         
         ax.set_title(f'{selected_column} 분포 그래프')
@@ -54,7 +53,8 @@ try:
         st.pyplot(fig) 
 
 except FileNotFoundError:
-    st.error(f'파일을 확인해주세요 : {file_path}')
+    st.error(f'파일을 찾을 수 없습니다. 다음 경로를 확인해주세요: {file_path}')
+    st.warning('TIP: app.py와 같은 위치에 data 폴더가 있고, 그 안에 파일이 있는지 확인하세요.')
 except ValueError:
     st.error("선택한 열은 그래프로 그릴 수 없는 문자열 데이터일 가능성이 큽니다. 숫자 데이터(급여 등)를 선택해주세요.")
 except Exception as e:
