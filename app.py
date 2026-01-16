@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 import platform # 운영체제 확인을 위해 추가
 
 # [추가] 한글 폰트 깨짐 방지 설정
